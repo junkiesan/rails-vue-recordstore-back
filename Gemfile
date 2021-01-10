@@ -23,8 +23,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors'
-gem 'jwt_sessions', '~> 0.0.1'
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
+gem 'jwt_sessions', '~> 2.5', '>= 2.5.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
