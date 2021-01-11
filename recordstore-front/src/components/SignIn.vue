@@ -1,21 +1,21 @@
 <template>
-  <div class="max-w-sm m-auto my-8">
-    <div class="border p-10 border-grey-light shadow rounded">
-      <h3 class="text-2xl mb-6 text-grey-darkest"> Sign In</h3>
+  <div class="container">
+    <div class="card">
+      <h3 class="title"> Sign In</h3>
       <form @submit.prevent="signin">
         <div class="text-red" v-if="error"> {{error}} </div>
 
-        <div class="mb-6">
+        <div class="row">
           <label for="email" class="label">E-mail Adress</label>
           <input type="email" v-model="email" class="input" id="email" placeholder="john.doe@example.com">
         </div>
 
-        <div class="mb-6">
+        <div class="row">
           <label for="password" class="label">Password</label>
           <input type="password" v-model="password" class="input" id="password" placeholder="**********">
         </div>
 
-        <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">
+        <button type="submit" class="button">
           Sign In
         </button>
 
@@ -31,36 +31,36 @@
 <script>
 export default {
   name: 'SignIn',
-  data: function() {
+  data: function () {
     return {
       email: '',
       password: '',
       error: ''
     }
   },
-  created() {
+  created () {
     this.checkSignIn()
   },
-  updated() {
+  updated () {
     this.checkSignIn()
   },
   methods: {
-    signIn: function() {
+    signIn: function () {
       this.$http.plain.post('/signin', { email: this.email, password: this.password })
         .then(response => this.signinSuccessful(response))
         .catch(error => this.signinFailed(error))
     },
-    signinSuccessful: function(response) {
+    signinSuccessful: function (response) {
       if (!response.data.csrf) {
         this.signinFailed(response)
-        return 
+        return
       }
       localStorage.csrf = response.data.csrf
       localStorage.signedIn = true
       this.error = ''
       this.$router.replace('/records')
     },
-    signinFailed: function(error) {
+    signinFailed: function (error) {
       this.error = (error.response && error.response.data && error.response.data.error) || ''
       delete localStorage.csrf
       delete localStorage.signedIn
@@ -75,5 +75,46 @@ export default {
 </script>
 
 <style>
+  body {
+    font-family: helvetica;
+  }
 
+  input {
+    border-radius: 3px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+  }
+
+  .card {
+    border: 3px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 5rem;
+  }
+
+  .title {
+    font-weight: 300;
+    font-family: helvetica;
+    font-size: 36px;
+  }
+
+  .row {
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    margin-bottom: 1rem;
+    height: 30px;
+    width: 70px;
+    font-size: 16px;
+  }
+
+  .link {
+    text-decoration: none;
+    color: black;
+  }
 </style>
