@@ -9,11 +9,13 @@
  *
  * @import "tailwindcss/preflight";
  */
+ /*! @import */
+
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
 
- @tailwind preflight;
+  @tailwind preflight;
 
  /**
   * This injects any component classes registered by plugins.
@@ -22,7 +24,7 @@
   *
   * @import "tailwindcss/components";
   */
- @tailwind components;
+  @tailwind components;
  
  /**
   * Here you would add any of your custom component classes; stuff that you'd
